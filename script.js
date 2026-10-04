@@ -278,3 +278,182 @@ function renderPlants() {
   }
 }
 
+// ---------- Render: Detail ----------
+function renderDetail() {
+  const plant = plants.find(item => item.id === selectedPlantId);
+
+  if (!plant) {
+    showPage("plants");
+    return;
+  }
+
+  $("#detail-name").textContent = plant.name;
+  $("#detail-category").textContent = `Kategori: ${plant.category}`;
+  $("#detail-water").textContent = plant.water;
+  $("#detail-light").textContent = plant.light;
+  $("#detail-fertilizer").textContent = plant.fertilizer;
+  $("#detail-note").textContent = plant.note;
+
+  const status = $("#detail-status");
+  status.textContent = `Status: ${getStatus(plant)}`;
+  status.classList.toggle("done", isCared(plant));
+
+  updateToggleButton($("#water-button"), plant.watered, "✓ Sudah Disiram", "Tandai Sudah Disiram");
+  updateToggleButton($("#fertilize-button"), plant.fertilized, "✓ Sudah Dipupuk", "Tandai Sudah Dipupuk");
+}
+
+function updateToggleButton(button, isDone, doneLabel, todoLabel) {
+  button.textContent = isDone ? doneLabel : todoLabel;
+  button.setAttribute("aria-pressed", String(isDone));
+  button.classList.toggle("btn-primary", isDone);
+  button.classList.toggle("btn-secondary", !isDone);
+}
+
+function openPlant(id) {
+  const plant = plants.find(item => item.id === id);
+  if (!plant) return;
+
+  selectedPlantId = id;
+  showPage("detail");
+}
+
+// ---------- Event: klik pada elemen dinamis ----------
+document.addEventListener("click", event => {
+  // Tombol hapus dicek lebih dulu karena berada di dalam kartu yang bisa diklik
+  const deleteButton = event.target.closest("[data-delete-plant]");
+
+  if (deleteButton) {
+    const id = Number(deleteButton.dataset.deletePlant);
+    const plant = plants.find(item => item.id === id);
+    if (!plant) return;
+
+    if (!window.confirm(`Yakin ingin menghapus tanaman ${plant.name}?`)) return;
+
+    plants = plants.filter(item => item.id !== id);
+    renderPlants();
+    renderHome();
+    showToast(`${plant.name} berhasil dihapus.`);
+    return;
+  }
+
+  const openButton = event.target.closest("[data-open-plant]");
+  if (openButton) {
+    openPlant(Number(openButton.dataset.openPlant));
+  }
+});
+
+// Dukungan keyboard untuk elemen role="button"
+document.addEventListener("keydown", event => {
+  if (
+    (event.key === "Enter" || event.key === " ") &&
+    event.target.matches('[data-open-plant][role="button"]')
+  ) {
+    event.preventDefault();
+    openPlant(Number(event.target.dataset.openPlant));
+  }
+});
+
+// ---------- Event: pencarian & filter ----------
+searchInput.addEventListener("input", renderPlants);
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    selectedCategory = button.dataset.category;
+
+    document.querySelectorAll(".filter-btn").forEach(filter => {
+      const isActive = filter === button;
+      filter.classList.toggle("active", isActive);
+      filter.setAttribute("aria-pressed", String(isActive));
+    });
+
+    renderPlants();
+  });
+});
+
+// ---------- Event: tambah tanaman ----------
+function openAddDialog() {
+  $("#add-form").reset();
+  $("#plant-emoji").value = "🌱";
+  addDialog.showModal();
+  $("#plant-name").focus();
+}
+
+$("#open-add-form").addEventListener("click", openAddDialog);
+$("#close-add-form").addEventListener("click", () => addDialog.close());
+$("#cancel-add-form").addEventListener("click", () => addDialog.close());
+
+// Klik area gelap di luar dialog untuk menutup
+addDialog.addEventListener("click", event => {
+  if (event.target === addDialog) addDialog.close();
+});
+
+$("#add-form").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const name = $("#plant-name").value.trim();
+  const category = $("#plant-category").value;
+  const emoji = $("#plant-emoji").value.trim() || "🌱";
+
+  if (!name) {
+    showToast("Nama tanaman harus diisi.");
+    return;
+  }
+
+  plants.push({
+    id: nextId++,
+    name,
+    emoji,
+    category,
+    water: "Sesuaikan dengan kondisi tanah",
+    light: "Cahaya sesuai jenis tanaman",
+    fertilizer: "Sesuai kebutuhan tanaman",
+    note: `Catat dan perhatikan kebutuhan perawatan ${name} secara rutin.`,
+    watered: false,
+    fertilized: false
+  });
+
+  addDialog.close();
+
+  // Reset pencarian & filter agar tanaman baru langsung terlihat
+  selectedCategory = "Semua";
+  searchInput.value = "";
+
+  document.querySelectorAll(".filter-btn").forEach(button => {
+    const active = button.dataset.category === "Semua";
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+
+  renderPlants();
+  renderHome();
+  showToast(`${name} berhasil ditambahkan.`);
+});
+
+// ---------- Event: tandai disiram / dipupuk ----------
+function toggleCare(field, doneMessage, undoMessage) {
+  const plant = plants.find(item => item.id === selectedPlantId);
+  if (!plant) return;
+
+  plant[field] = !plant[field];
+
+  renderDetail();
+  renderPlants();
+  renderHome();
+
+  showToast(plant[field] ? `${plant.name} ${doneMessage}` : `${plant.name} ${undoMessage}`);
+}
+
+$("#water-button").addEventListener("click", () =>
+  toggleCare("watered", "ditandai sudah disiram.", "ditandai belum disiram.")
+);
+
+$("#fertilize-button").addEventListener("click", () =>
+  toggleCare("fertilized", "ditandai sudah dipupuk.", "ditandai belum dipupuk.")
+);
+
+// ---------- Tampilan awal ----------
+renderHome();
+renderPlants();
+
+
+
