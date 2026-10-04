@@ -680,3 +680,183 @@ p {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ===== TABLET (<= 900px) ===== */
+@media (max-width: 900px) {
+  .hero,
+  .home-content {
+    padding-right: 6%;
+    padding-left: 6%;
+  }
+
+  .care-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detail-card {
+    margin-right: 6%;
+    margin-left: 6%;
+    padding: 20px;
+  }
+
+}
+
+/* ===== MOBILE (<= 600px) ===== */
+@media (max-width: 600px) {
+  :root {
+    --space-page: 6%;
+  }
+
+  .navbar {
+    min-height: 58px;
+    gap: 10px;
+  }
+
+  .brand {
+    font-size: 16px;
+  }
+
+  .navbar nav {
+    gap: 14px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 38px 6% 20px;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .hero-image {
+    max-width: 190px;
+  }
+
+  .home-content {
+    padding: 20px 6% 40px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Figma mobile: statistik tersusun vertikal */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    min-height: 76px;
+  }
+
+  .care-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .care-card {
+    padding: 12px;
+  }
+
+  .page-heading {
+    padding: 30px 6% 20px;
+    align-items: flex-start;
+  }
+
+  .page-heading h1 {
+    font-size: 26px;
+  }
+
+  .search-box {
+    width: auto;
+    margin-right: 6%;
+    margin-left: 6%;
+  }
+
+  .filter-list {
+    gap: 7px;
+    margin-bottom: 18px;
+  }
+
+  .filter-btn {
+    padding: 6px 11px;
+  }
+
+  /* Figma mobile: 1 kolom */
+  .plant-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding-bottom: 20px;
+  }
+
+  .plant-card {
+    padding: 14px;
+  }
+
+  .plant-emoji {
+    width: 42px;
+    height: 42px;
+    font-size: 24px;
+  }
+
+  .add-row {
+    padding-bottom: 40px;
+  }
+
+  .add-row .btn {
+    width: 100%;
+  }
+
+  .detail-heading {
+    padding-top: 24px;
+  }
+
+  .detail-card {
+    margin: 0 6%;
+    padding: 16px;
+  }
+
+  .detail-card h2 {
+    font-size: 22px;
+  }
+
+  .care-info-grid {
+    grid-template-columns: 1fr;
+    margin: 22px 0 18px;
+  }
+
+  .detail-actions {
+    flex-direction: column;
+  }
+
+  .detail-actions .btn {
+    width: 100%;
+  }
+
+  .notes-section {
+    padding: 26px 6% 10px;
+  }
+
+  .notes-card {
+    padding: 15px;
+  }
+
+  .back-link {
+    margin: 8px 6% 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
