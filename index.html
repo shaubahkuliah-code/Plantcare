@@ -24,6 +24,56 @@
     </nav>
   </header>
 
+  <main>
+    <section id="home-page" class="page active" aria-labelledby="home-title">
+      <section class="hero">
+        <div class="hero-copy">
+          <h1 id="home-title">Rawat tanamanmu, satu langkah setiap hari.</h1>
+          <p>Catat, pantau, dan jangan lupa merawat tanamanmu setiap hari.</p>
+          <button class="btn btn-primary" data-page="plants">Lihat Tanaman</button>
+        </div>
+        <img
+          class="hero-image"
+          src="hero-plant.svg"
+          alt="Ilustrasi tanaman berdaun hijau dalam pot oranye"
+          width="300" height="340">
+      </section>
+
+      <section class="home-content" aria-labelledby="summary-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="summary-title">Ringkasan Tanaman</h2>
+            <p>Pantau perkembangan tanamanmu.</p>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span id="total-count" class="stat-number">0</span>
+            <span>Tanaman</span>
+          </article>
+          <article class="stat-card">
+            <span id="need-care-count" class="stat-number orange">0</span>
+            <span>Perlu Dirawat</span>
+          </article>
+          <article class="stat-card">
+            <span id="cared-count" class="stat-number green">0</span>
+            <span>Terawat</span>
+          </article>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <h2>Tanaman yang Perlu Dirawat</h2>
+            <p>Jangan lupa cek tanamanmu hari ini.</p>
+          </div>
+        </div>
+        <div id="care-list" class="care-grid"></div>
+      </section>
+    </section>
+  </main>
+
+
     
 </body>
 </html>
