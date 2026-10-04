@@ -15,7 +15,7 @@
 <body>
     <header class="navbar">
     <a class="brand" href="#" data-page="home">
-      <img src="logo.svg" alt="logo" width="22" height="22">
+      <img src="images/logo.svg" alt="logo" width="22" height="22">
       PlantCare
     </a>
     <nav aria-label="Navigasi utama">
@@ -34,7 +34,7 @@
         </div>
         <img
           class="hero-image"
-          src="hero-plant.svg"
+          src="images/hero-plant.svg"
           alt="Ilustrasi tanaman berdaun hijau dalam pot oranye"
           width="300" height="340">
       </section>
@@ -70,6 +70,34 @@
         </div>
         <div id="care-list" class="care-grid"></div>
       </section>
+    </section>
+
+    <section id="plants-page" class="page" aria-labelledby="plants-title">
+      <div class="page-heading">
+        <div>
+          <h1 id="plants-title">Tanaman Saya</h1>
+          <p>Semua tanamanmu dalam satu tempat.</p>
+        </div>
+      </div>
+
+      <label class="search-box" for="search-input">
+        <span aria-hidden="true">⌕</span>
+        <input id="search-input" type="search" placeholder="Cari tanaman..." autocomplete="off">
+      </label>
+
+       <div class="filter-list" role="group" aria-label="Filter kategori">
+        <button class="filter-btn active" data-category="Semua" aria-pressed="true">Semua</button>
+        <button class="filter-btn" data-category="Bunga" aria-pressed="false">Bunga</button>
+        <button class="filter-btn" data-category="Sayuran" aria-pressed="false">Sayuran</button>
+        <button class="filter-btn" data-category="Tanaman Hias" aria-pressed="false">Tanaman Hias</button>
+      </div>
+
+      <div id="plant-grid" class="plant-grid"></div>
+      <p id="empty-message" class="empty-message" hidden></p>
+
+      <div class="add-row">
+        <button id="open-add-form" class="btn btn-primary">+ Tambah Tanaman</button>
+      </div>
     </section>
   </main>
 
