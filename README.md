@@ -7,7 +7,7 @@ NIM: 2510131220014
 Aplikasi web sederhana untuk mencatat dan merawat tanaman. Pengguna dapat melihat ringkasan perawatan, mencari dan memfilter tanaman, menambah atau menghapus tanaman, serta menandai tanaman yang sudah disiram dan dipupuk.
 
 Tautan
-Figma (View): PlantCare di Figma
+Figma (View): https://www.figma.com/design/TO6ULHJybCBte2nWAEziAg/PlantCare?node-id=3-1025&t=7IctNR9ME1clIgM4-1
 Live Demo (GitHub Pages): ISI_LINK_GITHUB_PAGES_DI_SINI
 Repositori: ISI_LINK_REPOSITORI_DI_SINI
 Fitur Utama
