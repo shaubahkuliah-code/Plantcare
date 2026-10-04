@@ -99,9 +99,54 @@
         <button id="open-add-form" class="btn btn-primary">+ Tambah Tanaman</button>
       </div>
     </section>
+
+    <section id="detail-page" class="page" aria-labelledby="detail-title">
+      <div class="page-heading detail-heading">
+        <h1 id="detail-title">Detail Tanaman</h1>
+      </div>
+
+      <article class="detail-card">
+        <h2 id="detail-name">Nama Tanaman</h2>
+        <p id="detail-category" class="muted">Kategori:</p>
+
+        <div class="care-info-grid">
+          <div class="care-info">
+            <span class="info-icon" aria-hidden="true">💧</span>
+            <div><h3>Penyiraman</h3><p id="detail-water"></p></div>
+          </div>
+          <div class="care-info">
+            <span class="info-icon" aria-hidden="true">☀️</span>
+            <div><h3>Cahaya</h3><p id="detail-light"></p></div>
+          </div>
+          <div class="care-info">
+            <span class="info-icon" aria-hidden="true">🌱</span>
+            <div><h3>Pemupukan</h3><p id="detail-fertilizer"></p></div>
+          </div>
+        </div>
+
+        <p id="detail-status" class="status-text"></p>
+        <div class="detail-actions">
+          <button id="water-button" class="btn btn-secondary" aria-pressed="false">Tandai Sudah Disiram</button>
+          <button id="fertilize-button" class="btn btn-secondary" aria-pressed="false">Tandai Sudah Dipupuk</button>
+        </div>
+      </article>
+
+      <section class="notes-section" aria-labelledby="notes-title">
+        <h2 id="notes-title">Catatan Perawatan</h2>
+        <div class="notes-card">
+          <p id="detail-note"></p>
+        </div>
+      </section>
+
+      <button class="back-link" data-page="plants">← Kembali ke Tanaman Saya</button>
+    </section>
   </main>
 
+  <footer class="footer">
+    <p>PlantCare — Rawat tanamanmu, satu langkah setiap hari.</p>
+  </footer>
 
-    
+  
+  </main> 
 </body>
 </html>
