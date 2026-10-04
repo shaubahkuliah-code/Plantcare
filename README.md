@@ -8,7 +8,7 @@ Aplikasi web sederhana untuk mencatat dan merawat tanaman. Pengguna dapat meliha
 
 Tautan
 Figma (View): https://www.figma.com/design/TO6ULHJybCBte2nWAEziAg/PlantCare?node-id=3-1025&t=7IctNR9ME1clIgM4-1
-Live Demo (GitHub Pages): ISI_LINK_GITHUB_PAGES_DI_SINI
+Live Demo (GitHub Pages):  https://shaubahkuliah-code.github.io/Plantcare/
 Repositori: ISI_LINK_REPOSITORI_DI_SINI
 Fitur Utama
 Home: ringkasan jumlah tanaman, tanaman yang perlu dirawat, dan tanaman yang sudah terawat.
