@@ -140,3 +140,141 @@ function showToast(message) {
     toastElement.classList.remove("show");
   }, 2500);
 }
+
+// ---------- Navigasi antar halaman ----------
+function showPage(pageName) {
+  if (!pages[pageName]) return;
+
+  Object.values(pages).forEach(page => page.classList.remove("active"));
+  pages[pageName].classList.add("active");
+
+  // Halaman Detail dianggap bagian dari "My Plants"
+  const navTarget = pageName === "detail" ? "plants" : pageName;
+
+  document.querySelectorAll(".nav-link").forEach(button => {
+    const isActive = button.dataset.page === navTarget;
+    button.classList.toggle("active", isActive);
+
+    if (isActive) {
+      button.setAttribute("aria-current", "page");
+    } else {
+      button.removeAttribute("aria-current");
+    }
+  });
+
+  if (pageName === "home") renderHome();
+  if (pageName === "plants") renderPlants();
+  if (pageName === "detail") renderDetail();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.querySelectorAll("[data-page]").forEach(element => {
+  element.addEventListener("click", event => {
+    event.preventDefault(); 
+    showPage(element.dataset.page);
+  });
+});
+
+// ---------- Render: Home ----------
+function renderHome() {
+  const stats = countStats();
+  $("#total-count").textContent = stats.total;
+  $("#need-care-count").textContent = stats.needCare;
+  $("#cared-count").textContent = stats.cared;
+
+  const careList = $("#care-list");
+
+  if (plants.length === 0) {
+    careList.innerHTML = `
+      <div class="care-empty">
+        <h3>Belum ada tanaman</h3>
+        <p>Buka My Plants lalu tambahkan tanaman pertamamu.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const plantsToCare = plants.filter(plant => !isCared(plant));
+
+  if (plantsToCare.length === 0) {
+    careList.innerHTML = `
+      <div class="care-empty">
+        <h3>Semua tanaman terawat 🌱</h3>
+        <p>Hebat, semua tanamanmu sudah dirawat hari ini.</p>
+      </div>
+    `;
+    return;
+  }
+
+  careList.innerHTML = plantsToCare.map(plant => `
+    <article class="care-card">
+      <div class="mini-emoji" aria-hidden="true">${escapeHTML(plant.emoji)}</div>
+      <div>
+        <h3>${escapeHTML(plant.name)}</h3>
+        <p>${escapeHTML(getStatus(plant))}</p>
+        <button class="text-button" data-open-plant="${plant.id}">
+          Lihat detail →
+        </button>
+      </div>
+    </article>
+  `).join("");
+}
+
+// ---------- Render: My Plants ----------
+function renderPlants() {
+  const keyword = searchInput.value.trim().toLowerCase();
+
+  const filteredPlants = plants.filter(plant => {
+    const matchesName = plant.name.toLowerCase().includes(keyword);
+    const matchesCategory =
+      selectedCategory === "Semua" || plant.category === selectedCategory;
+
+    return matchesName && matchesCategory;
+  });
+
+  plantGrid.innerHTML = filteredPlants.map(plant => `
+    <article class="plant-card" data-open-plant="${plant.id}">
+      <div
+        class="plant-card-top"
+        role="button"
+        tabindex="0"
+        data-open-plant="${plant.id}"
+        aria-label="Lihat detail ${escapeHTML(plant.name)}"
+      >
+        <div class="plant-emoji" aria-hidden="true">${escapeHTML(plant.emoji)}</div>
+        <div>
+          <h2>${escapeHTML(plant.name)}</h2>
+          <p class="plant-category">Kategori: ${escapeHTML(plant.category)}</p>
+        </div>
+      </div>
+
+      <p class="plant-status ${isCared(plant) ? "done" : ""}">
+        <span aria-hidden="true">${isCared(plant) ? "✓" : "💧"}</span>
+        ${escapeHTML(getStatus(plant))}
+      </p>
+
+      <div class="card-footer">
+        <button class="text-button" data-open-plant="${plant.id}">
+          Lihat detail →
+        </button>
+        <button
+          class="delete-button"
+          data-delete-plant="${plant.id}"
+          aria-label="Hapus ${escapeHTML(plant.name)}"
+        >Hapus</button>
+      </div>
+    </article>
+  `).join("");
+
+  // Pesan kosong dibedakan: belum ada data vs. hasil pencarian kosong
+  if (filteredPlants.length > 0) {
+    emptyMessage.hidden = true;
+  } else {
+    emptyMessage.textContent = plants.length === 0
+      ? "Belum ada tanaman. Klik + Tambah Tanaman untuk memulai."
+      : "Tanaman tidak ditemukan. Coba kata kunci atau kategori lain.";
+    emptyMessage.hidden = false;
+  }
+}
+
