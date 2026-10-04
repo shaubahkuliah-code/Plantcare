@@ -41,4 +41,3 @@ Unduh atau clone repositori ini.
 Buka index.html di browser, atau buka tautan Live Demo di atas.
 
 Data tanaman disimpan sementara di memori (array plants), sehingga kembali ke data awal saat halaman dimuat ulang.
-
