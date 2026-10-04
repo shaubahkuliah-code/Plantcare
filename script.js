@@ -72,3 +72,71 @@ const initialPlants = [
     fertilized: true
   }
 ];
+
+// ---------- State aplikasi ----------
+let plants = initialPlants.map(plant => ({ ...plant }));
+let selectedCategory = "Semua";
+let selectedPlantId = null;
+let nextId = initialPlants.length + 1;
+let toastTimeout;
+
+// ---------- Referensi elemen DOM ----------
+const $ = selector => document.querySelector(selector);
+
+const pages = {
+  home: $("#home-page"),
+  plants: $("#plants-page"),
+  detail: $("#detail-page")
+};
+
+const plantGrid = $("#plant-grid");
+const searchInput = $("#search-input");
+const emptyMessage = $("#empty-message");
+const addDialog = $("#add-dialog");
+const toastElement = $("#toast");
+
+// ---------- Fungsi bantu ----------
+const isCared = plant => plant.watered && plant.fertilized;
+
+// Mencegah teks input tampil sebagai HTML
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[character]);
+}
+
+function getStatus(plant) {
+  if (!plant.watered && !plant.fertilized) return "Perlu disiram dan dipupuk";
+  if (!plant.watered) return "Perlu disiram";
+  if (!plant.fertilized) return "Perlu dipupuk";
+  return "Perawatan selesai";
+}
+
+// Menghitung statistik dengan perulangan for
+function countStats() {
+  let cared = 0;
+
+  for (const plant of plants) {
+    if (isCared(plant)) cared++;
+  }
+
+  return {
+    total: plants.length,
+    cared,
+    needCare: plants.length - cared
+  };
+}
+
+function showToast(message) {
+  clearTimeout(toastTimeout);
+  toastElement.textContent = message;
+  toastElement.classList.add("show");
+
+  toastTimeout = setTimeout(() => {
+    toastElement.classList.remove("show");
+  }, 2500);
+}
