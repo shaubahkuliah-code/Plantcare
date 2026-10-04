@@ -1,5 +1,4 @@
 # Plantcare
-PlantCare
 
 Nama: Hayatun Shaubah
 NIM: 2510131220014
@@ -9,7 +8,8 @@ Aplikasi web sederhana untuk mencatat dan merawat tanaman. Pengguna dapat meliha
 Tautan
 Figma (View): https://www.figma.com/design/TO6ULHJybCBte2nWAEziAg/PlantCare?node-id=3-1025&t=7IctNR9ME1clIgM4-1
 Live Demo (GitHub Pages):  https://shaubahkuliah-code.github.io/Plantcare/
-Repositori: ISI_LINK_REPOSITORI_DI_SINI
+Repositori: https://github.com/shaubahkuliah-code/Plantcare.git
+
 Fitur Utama
 Home: ringkasan jumlah tanaman, tanaman yang perlu dirawat, dan tanaman yang sudah terawat.
 My Plants: daftar tanaman dengan pencarian nama dan filter kategori (Bunga, Sayuran, Tanaman Hias).
